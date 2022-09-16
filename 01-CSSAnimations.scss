@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+$birincil-renk: white;
+// sass'ta degisken tanimlama.
+
+.navigation {
+  // navigation sinifinin icindeki h1.
+  h1 {
+    color: $birincil-renk; // tanimlanan degisken daha sonra böyle kullanilir.
+  }
+  &-text {
+    // .navigation-text demek.
+  }
+}
+
+@mixin mixinÖzellikleri {
+    ...
+    ...
+    // yazili özellikler daha sonra buradan cagirilip kullanilir. @include ile.
+}
+
+@mixin fonksiyonluMixin ($fontrengi) {
+    color: $fontrengi;
+    // degerini parametreden alir.
+}
+
+div-parent {
+    @include mixinÖzellikleri;
+
+    @include fonksiyonluMixin(white);
+
+  backface-visibility: hidden;
+  // animasyonlardan kaynaklanan ve kaynagi bilinmeyen titreme sorununu ortadan kaldirir.
+}
+
+div-child {
+  animation-name: moveInLeft;
+ 
+ 
+  animation: moveInLeft 3s 1s; // bunu bu sekilde toplu olarak da yazabiliriz.
+  animation-iteration-count: 5; // animasyonu 5 kez tekrar eder.
+  animation-fill-mode: backwards; // animasyon bittikten sonra uygulanan degisiklikliklerin vs hangi karedeki gibi kalacagina karar verir.
+  // none: animasyon bittikten sonra ilk haline döner.
+  // forwards: animasyon bittikten sonra son hali gibi kalir.
+  // backwards: animasyon baslamadan önce ilk karedeki özellikleri uygulanir, bittiginde ise kendi özelliklerine geri döner.
+  // both: forwards ve backwards özelliklerinin ikisini birden uygulamak icin kullanilir.
+
+
+
+}
+
+@keyframes moveInLeft {
+  0% {
+    // 0% baslangic ani demektir. yüzdeler animasyonun tamamlana kadarki her bir anini temsil eder. 100%'e kadar yolu vardir.
+    opacity: 0;
+    // öge, 0 opaklikla baslasin.
+    
+  100% {
+    // 0% baslangic ani demektir. yüzdeler animasyonun tamamlana kadarki her bir anini temsil eder. 100%'e kadar yolu vardir.
+    opacity: 1;
+    // öge, 1 opaklikla bitsin.
+    transform: translate(0);
+    // animasyon bittiginde öge 0 konumunda olsun. (olmasi gereken yerde)
+  }
+}
+
+butondivi:link {
+  // buton, yani link, tiklanmadan ziyaret edilmeden önce.
+}
+butondivi:visited {
+  // buton, yani link, tiklanmadan ziyaret ediltikten sonra.
+}
+butondivi:hover {
+  // butonun üzerine gelindiginde.
+  background-color: darken(purple, 15%);
+  // darken fonksiyonu scss'e özeldir, yazili rengi 15% daha koyu yapar.
+  // lighten fonksiyonu da tam tersini yapar.
+}
+butondivi:clicked {
+  // butonun tiklandigi anda.
+}
+
+
+
+button {
+  transition-property: background-color border-color translate(); // animasyonun hangi propertylere uygulanacagini burada seceriz. all yazarsak hepsini alir, tek tek yazmamiza gerek kalmaz.
+  animation-timing-function: ease / ease-in / ease-out / ease-in-out / linear / step-start / step-end; // animasyonun hizini belirler.
+// ease: defaulttur. animasyon yavas baslar, hizlanir, ve yavas biter.
+// linear: animasyon baslangictan bitise kadar ayni hizda oynar.
+// ease-in: animasyon yavas baslar, bitmeden önce hizlanir.
+// ease-out: animasyon hizli baslar, bitmeden önce yavaslar.
+// ease-in-out: animasyon yavas baslar, hizlanir, ve yavas biter. (easeyle arasinda fazla bir fark yoktur.)
+animation-delay: 1s; // animasyon baslamadan önce 1 saniye bekler.
+animation-duration: 3s; // animasyonun tamamlanma süresi.
+
+transition: background-color 3s ease 1s, color 1s ease-in 3s;
+// background-color degisimine uygulanan animasyonun durationu 3 sn, timing-function'u ease, delay'i 1 sn olsun.
+// color degisimine uygulanan animasyonlar ise hemen ardindan yazili degerleri barindirsin.
+
+transform-origin: top / bottom / left / right / top right / 30% 50%;
+// yazili transform noktasinin ögenin hangi noktasini merkez alarak uygulanacagini belirleriz.
+
+&:hover{
+  transform: translateX(-10rem);
+  transform: translate(-10rem, 10rem); // ögeyi x ve y istikametinde yazili degerler kadar tasir.
+  transform: translateZ(10rem); // ögeyi z istikametinde (yani bize dogru) yazili deger kadar tasir.
+  // Bunun icin önce body icerisinde perspective: 50rem; seklinde bir property tanitilir. Bu, "ekran ile kullanici arasindaki mesafe 50rem'dir" demektir. 
+
+  transform: scale(2); // ögeyi 2 kati olacak sekilde büyütür. 0.1 gibi rakamlar ise kücültür. iki istikamet icin ayri iki parametre de alabilir. scaleX, scaleY seklinde kullanimlari da vardir.
+
+  transform: rotate(180deg); // ögeyi icine yazili deger kadar cevirir.
+  transform: rotateX(90rem); // ögeyi bize dogru yazili deger kadar cevirir.
+  // Bunun icin önce body icerisinde perspective: (örn) 50rem; seklinde bir property tanitilir. Bu, "ekran ile kullanici arasindaki mesafe 50rem'dir" demektir. 
+  // rotateX, rotateZ seklinde kullanimlari da vardir.
+
+
+  transform: skew(180deg); // ögeyi icine yazili deger kadar büker. iki istikamet icin ayri iki parametre de alabilir. scaleX, scaleY seklinde kullanimlari da vardir.
+  }
+}
